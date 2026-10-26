@@ -1,0 +1,61 @@
+# LIBERO benchmark subsets (libero_10 / libero_goal / libero_object / libero_spatial).
+# All four share identical feature layout -- 8-dim EE state, 7-dim EE delta + binary gripper,
+# and two cameras (agentview + wrist). We register each subset separately so per-subset
+# stats.json entries don't collide in the aggregated stats.
+#
+# action_mask_spec [6, -1] means: first 6 dims are delta (xyz + rpy), last 1 dim is absolute
+# (binary gripper). Not used at training time here (action_mode is set to "abs" in the launch
+# script, which skips DeltaActionTransformFn), but kept for correctness if someone flips
+# action_mode back to "delta".
+
+- robot_type: libero_10
+  feature_mapping:
+    observation.state:
+      - observation.state
+    action:
+      - action
+  image_mapping:
+    observation.images.image: observation.images.image0
+    observation.images.wrist_image: observation.images.image1
+  action_mask_spec: [6, -1]
+  action_mode: end_effector
+  description: "LIBERO-10 (agentview + wrist cameras, 7D EE delta + gripper)"
+
+- robot_type: libero_goal
+  feature_mapping:
+    observation.state:
+      - observation.state
+    action:
+      - action
+  image_mapping:
+    observation.images.image: observation.images.image0
+    observation.images.wrist_image: observation.images.image1
+  action_mask_spec: [6, -1]
+  action_mode: end_effector
+  description: "LIBERO-goal (agentview + wrist cameras, 7D EE delta + gripper)"
+
+- robot_type: libero_object
+  feature_mapping:
+    observation.state:
+      - observation.state
+    action:
+      - action
+  image_mapping:
+    observation.images.image: observation.images.image0
+    observation.images.wrist_image: observation.images.image1
+  action_mask_spec: [6, -1]
+  action_mode: end_effector
+  description: "LIBERO-object (agentview + wrist cameras, 7D EE delta + gripper)"
+
+- robot_type: libero_spatial
+  feature_mapping:
+    observation.state:
+      - observation.state
+    action:
+      - action
+  image_mapping:
+    observation.images.image: observation.images.image0
+    observation.images.wrist_image: observation.images.image1
+  action_mask_spec: [6, -1]
+  action_mode: end_effector
+  description: "LIBERO-spatial (agentview + wrist cameras, 7D EE delta + gripper)"
